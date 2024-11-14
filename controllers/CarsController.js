@@ -53,3 +53,16 @@ exports.deleteCar = (req, res) => {
     res.status(200).json({ message: 'Carro deletado com sucesso' });
   });
 };
+
+exports.getCar = (req, res) => {
+  const { id } = req.params;
+  db.get(`SELECT * FROM cars WHERE id = ?`, [id], (err, row) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    if (!row) {
+      return res.status(404).json({ error: 'Carro não encontrado' });
+    }
+    res.json(row);
+  });
+};
