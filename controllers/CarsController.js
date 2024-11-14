@@ -12,10 +12,10 @@ exports.getCars = (req, res) => {
 
 // Criar um novo carro
 exports.createCar = (req, res) => {
-  const { ownerId, make, model, year } = req.body;
+  const { ownerId, make, model, year, battery_level } = req.body;
   db.run(
-    `INSERT INTO cars (ownerId, make, model, year) VALUES (?, ?, ?, ?)`,
-    [ownerId, make, model, year],
+    `INSERT INTO cars (ownerId, make, model, year, battery_level) VALUES (?, ?, ?, ?, ?)`,
+    [ownerId, make, model, year, battery_level],
     function (err) {
       if (err) {
         return res.status(500).json({ error: err.message });
@@ -28,11 +28,11 @@ exports.createCar = (req, res) => {
 // Atualizar carro
 exports.updateCar = (req, res) => {
   const { id } = req.params;
-  const { make, model, year } = req.body;
+  const { make, model, year, battery_level } = req.body;
 
   db.run(
-    `UPDATE cars SET make = ?, model = ?, year = ? WHERE id = ?`,
-    [make, model, year, id],
+    `UPDATE cars SET make = ?, model = ?, year = ?, battery_level = ? WHERE id = ?`,
+    [make, model, year, battery_level, id],
     function (err) {
       if (err) {
         return res.status(500).json({ error: err.message });

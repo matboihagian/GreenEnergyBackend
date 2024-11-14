@@ -24,6 +24,7 @@ db.serialize(() => {
     model TEXT NOT NULL,
     year INTEGER NOT NULL,
     ownerId INTEGER,
+    battery_level INTEGER DEFAULT 100,
     FOREIGN KEY (ownerId) REFERENCES users(id)
   )`);
 
@@ -32,8 +33,9 @@ db.serialize(() => {
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     location TEXT NOT NULL,
     capacity INTEGER NOT NULL,
-    status TEXT NOT NULL
+    status TEXT NOT NULL,
+    potencia TEXT CHECK(potencia IN ('1,4kW', '22kW', '50kW')) DEFAULT '1,4kW'
   )`);
-});
+  });
 
 module.exports = db;
