@@ -36,6 +36,6 @@ db.serialize(() => {
     status TEXT NOT NULL,
     potencia TEXT CHECK(potencia IN ('1,4kW', '22kW', '50kW')) DEFAULT '1,4kW'
   )`);
-  });
+});
 
 module.exports = db;

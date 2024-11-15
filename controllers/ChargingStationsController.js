@@ -12,10 +12,10 @@ exports.getChargingStations = (req, res) => {
 
 // Criar um novo posto de carregamento
 exports.createChargingStation = (req, res) => {
-  const { location, capacity, status, potencia = '1,4kW' } = req.body;
+  const { location, capacity, status, potencia, energy_source } = req.body;
   db.run(
-    `INSERT INTO charging_stations (location, capacity, status, potencia) VALUES (?, ?, ?, ?)`,
-    [location, capacity, status, potencia],
+    `INSERT INTO charging_stations (location, capacity, status, potencia, energy_source) VALUES (?, ?, ?, ?, ?)`,
+    [location, capacity, status, potencia, energy_source],
     function (err) {
       if (err) {
         return res.status(500).json({ error: err.message });
@@ -28,11 +28,11 @@ exports.createChargingStation = (req, res) => {
 // Atualizar posto de carregamento
 exports.updateChargingStation = (req, res) => {
   const { id } = req.params;
-  const { location, capacity, status, potencia } = req.body;
+  const { location, capacity, status, potencia, energy_source } = req.body;
 
   db.run(
-    `UPDATE charging_stations SET location = ?, capacity = ?, status = ?, potencia = ? WHERE id = ?`,
-    [location, capacity, status, potencia, id],
+    `UPDATE charging_stations SET location = ?, capacity = ?, status = ?, potencia = ?, energy_source = ? WHERE id = ?`,
+    [location, capacity, status, potencia, energy_source, id],
     function (err) {
       if (err) {
         return res.status(500).json({ error: err.message });
